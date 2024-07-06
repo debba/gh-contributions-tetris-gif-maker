@@ -24,6 +24,8 @@ RUN crontab /etc/cron.d/github-tetris-cron
 
 # Create the log file to be able to run tail
 RUN touch /var/log/cron.log
+# Synchronize time
+RUN ntpdate pool.ntp.org
 
 # Run the command on container startup
-CMD cron && tail -f /var/log/cron.log
+CMD ntpdate pool.ntp.org && cron && tail -f /var/log/cron.log
