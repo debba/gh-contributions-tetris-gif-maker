@@ -1,8 +1,7 @@
 import argparse
-
 import requests
 from PIL import Image, ImageDraw, ImageFont
-
+from datetime import datetime
 
 def textsize(text, font):
     im = Image.new(mode="P", size=(0, 0))
@@ -31,7 +30,7 @@ def draw_grid(draw, grid, cell_size, colors):
             # Block
             draw.rectangle([x0, y0, x1, y1], fill=color, outline=(255, 255, 255))
 
-def draw_legend(draw, cell_size, image_width, image_height):
+def draw_legend(draw, cell_size, image_width, image_height, username, year):
     # Draw day names
     days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     for i, day in enumerate(days):
@@ -45,20 +44,24 @@ def draw_legend(draw, cell_size, image_width, image_height):
         x = week * cell_size + 40
         draw.text((x, 5), months[month - 1], fill=(255, 255, 255))
 
+    # Draw GitHub username and year in top left
+    text = f"{year}"
+    draw.text((5, 5), text, fill=(255, 255, 255))
+
     # Add black bar below months with "Credits: DEBBAWEB" aligned to the right
     legend_width = 40
     bar_height = 20
     bar_y = image_height - bar_height  # Position at the bottom of the image
     draw.rectangle([legend_width, bar_y, image_width, image_height], fill=(0, 0, 0))
 
-    text = "Credits: DEBBAWEB"
+    credits_text = f"@{username} - Credits: DEBBAWEB"
     font = ImageFont.load_default()  # Load default font
-    text_width, text_height = textsize(text, font=font)  # Calculate text size
+    text_width, text_height = textsize(credits_text, font=font)  # Calculate text size
     text_x = image_width - text_width - 5
     text_y = bar_y + (bar_height - text_height) // 2
-    draw.text((text_x, text_y), text, fill=(255, 255, 255), font=font)  # Draw text with specified font
+    draw.text((text_x, text_y), credits_text, fill=(255, 255, 255), font=font)  # Draw text with specified font
 
-def create_tetris_gif(contributions, output_path):
+def create_tetris_gif(username, year, contributions, output_path):
     width = 53  # 53 weeks
     height = 7  # 7 days per week
     cell_size = 20
@@ -81,7 +84,7 @@ def create_tetris_gif(contributions, output_path):
             if step % 2 == 0:  # Add frames for every second step only
                 img = Image.new('RGB', (image_width, image_height), background_color)
                 draw = ImageDraw.Draw(img)
-                draw_legend(draw, cell_size, image_width, image_height)
+                draw_legend(draw, cell_size, image_width, image_height, username, year)
                 draw_grid(draw, grid, cell_size, colors)
 
                 # Draw moving block
@@ -101,7 +104,7 @@ def create_tetris_gif(contributions, output_path):
         for alpha in range(0, 256, 50):  # Larger steps to make the fade faster
             img = Image.new('RGB', (image_width, image_height), background_color)
             draw = ImageDraw.Draw(img)
-            draw_legend(draw, cell_size, image_width, image_height)
+            draw_legend(draw, cell_size, image_width, image_height, username, year)
             draw_grid(draw, grid, cell_size, colors)
 
             x0, y0 = week * cell_size + legend_width, day * cell_size + 20
@@ -119,14 +122,14 @@ def create_tetris_gif(contributions, output_path):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Generate a GitHub contributions Tetris GIF.')
-    parser.add_argument('username', type=str, help='GitHub username')
-    parser.add_argument('year', type=int, help='Year for contributions')
+    parser.add_argument('-u', '--username', type=str, required=True, help='GitHub username')
+    parser.add_argument('-y', '--year', type=int, default=datetime.now().year, help='Year for contributions')
 
     args = parser.parse_args()
 
     try:
         contributions = get_github_contributions(args.username, args.year)
-        create_tetris_gif(contributions, 'images/github_tetris.gif')
+        create_tetris_gif(args.username, args.year, contributions, f'images/tetris_github.gif')
         print("GIF created successfully!")
     except Exception as e:
         print(e)

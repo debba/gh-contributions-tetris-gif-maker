@@ -2,6 +2,8 @@
 
 This script generates an animated Tetris-style GIF based on a GitHub user's contributions for a specific year.
 
+[![@debba 2023 - sample](https://raw.githubusercontent.com/debba/gh-contributions-tetris-gif-maker/main/sample/test_debba_2023.gif)](https://www.github.com/debba)
+
 ## Prerequisites
 
 Make sure you have the following Python packages installed:
