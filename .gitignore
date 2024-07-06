@@ -1,3 +1,5 @@
 .idea
 images/*
 .venv
+upload_to_s3.py
+docker/crontab

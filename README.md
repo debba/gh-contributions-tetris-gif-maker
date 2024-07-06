@@ -36,6 +36,28 @@ The script will generate an animated GIF of the specified user's GitHub contribu
 
 It will generate a github_tetris.gif file in the images folder showing the daily contributions of the user debba for the year 2024 in Tetris style.
 
+## Docker Usage
+
+- Create `docker/crontab` file  (You can start from `docker/crontab.example`)
+- Create `upload_to_s3.py` (You can start from `upload_to_s3.example.py`)
+- Create a docker build
+```sh
+docker build -t github-tetris-maker docker
+```
+- Execute ad docker container
+```sh
+docker run -d --name github-tetris-maker \
+  -e AWS_ACCESS_KEY_ID=your_access_key_id \
+  -e AWS_SECRET_ACCESS_KEY=your_secret_access_key \
+  github-tetris-maker
+```
+
+You can show container logs with the following command:
+```sh
+docker logs -f github-tetris-maker
+```
+
+
 ## Credits
 
 This script was developed by debba.
