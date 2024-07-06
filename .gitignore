@@ -1,5 +1,6 @@
 .idea
 images/*
+!images/.gitkeep
 .venv
 upload_to_s3.py
 docker/crontab
