@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN apt-get update && apt-get install -y cron
 
 # Add the crontab file in the cron directory
-COPY crontab /etc/cron.d/github-tetris-cron
+COPY docker/crontab /etc/cron.d/github-tetris-cron
 
 # Give execution rights on the cron job
 RUN chmod 0644 /etc/cron.d/github-tetris-cron
