@@ -25,13 +25,14 @@ pip install -r requirements.txt
 - Run the script from the command line by providing the GitHub username and the year for which you want to fetch the contributions:
 
 ```sh
-python main.py <username> <year>
+python main.py -u <username> -y <year>
 ```
+
 For example:
 
 ```sh
 
-python main.py debba 2024
+python main.py -u debba -y 2024
 ```
 
 The script will generate an animated GIF of the specified user's GitHub contributions for the specified year and save it in the images folder with the name github_tetris.gif.
@@ -40,13 +41,16 @@ It will generate a github_tetris.gif file in the images folder showing the daily
 
 ## Docker Usage
 
-- Create `docker/crontab` file  (You can start from `docker/crontab.example`)
+- Create `docker/crontab` file (You can start from `docker/crontab.example`)
 - Create `upload_to_s3.py` (You can start from `upload_to_s3.example.py`)
 - Create a docker build
+
 ```sh
 docker build -t github-tetris-maker docker
 ```
+
 - Execute ad docker container
+
 ```sh
 docker run -d --name github-tetris-maker \
   -e AWS_ACCESS_KEY_ID=your_access_key_id \
@@ -55,10 +59,10 @@ docker run -d --name github-tetris-maker \
 ```
 
 You can show container logs with the following command:
+
 ```sh
 docker logs -f github-tetris-maker
 ```
-
 
 ## Credits
 
