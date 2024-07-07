@@ -2,5 +2,6 @@
 images/*
 !images/.gitkeep
 .venv
+.env
 upload_to_s3.py
 docker/crontab
