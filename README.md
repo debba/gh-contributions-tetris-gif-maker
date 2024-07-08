@@ -46,7 +46,7 @@ It will generate a github_tetris.gif file in the images folder showing the daily
 - Create a docker build
 
 ```sh
-docker build -t github-tetris-maker docker
+docker build -t github-tetris-maker .
 ```
 
 - Execute ad docker container
