@@ -1,2 +1,2 @@
 # Run the script every day at midnight
-0 0 * * * root python /app/main.py user year >> /var/log/cron.log 2>&1 && python /app/upload_to_s3.py >> /var/log/cron.log 2>&1
+0 0 * * * root python /app/main.py -u user -y year >> /var/log/cron.log 2>&1 && python /app/upload_to_s3.py >> /var/log/cron.log 2>&1
