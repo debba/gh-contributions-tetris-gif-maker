@@ -1,8 +1,12 @@
+[![Discord](https://img.shields.io/discord/1470772941296894128?color=5865F2&logo=discord&logoColor=white)](https://discord.gg/WgsVw69F)
+
 # GitHub Contributions Tetris GIF Maker
 
 This script generates an animated Tetris-style GIF based on a GitHub user's contributions for a specific year.
 
 [![@debba 2023 - sample](https://raw.githubusercontent.com/debba/gh-contributions-tetris-gif-maker/main/sample/tetris_debba_2023.gif)](https://www.github.com/debba)
+
+**Discord** - [Join our discord server](https://discord.gg/WgsVw69F) and chat with the maintainers.
 
 ## Prerequisites
 
